@@ -1,0 +1,15 @@
+Open file as virtual grayscale track [Note: be sure to only use slices that correspond to a fixed field of view]
+Duplicate stack (Image —> Duplicate)
+Subtract background (Process —> Subtract background)
+Detect static objects (Image —> Stacks —> Z Project —> Median)
+Remove static objects (Process —> Image Calculator —> Difference [#3 - #4])
+Open TrackMate to start segmenting and tracking (Plugins —> Tracking —> TrackMate)
+Use Difference of Gaussian (DoG) detector for spot segmentation
+You can measure 'Estimated blob diameter' using the line segment tool, but for 20x videos on slides 25 pixels is usually a decent estimate.
+A threshold of 1.0 works well for this dataset, but use the 'Preview' option to make sure. Remember that it is better to over-detect than under-detect.
+Note: the initial segmentation can take some time after you press 'Next'.
+You can make adjustments and filter spots in the ‘Initial Thresholding’ step, but it's not necessary — it's easy enough to do it in the step where you manually edit the tracks.
+Use the 'Hyperstack Displayer' setting.
+Use the 'LAP Tracker'.
+Use the 'TrackScheme' to manually quality control the tracks. Merge tracks that were not automatically merged in prior steps, and remove extraneous points. In the end, what should remain is a single track for each cell, with only one spot per frame; some frames might be skipped but if there is too big a gap, just trim the trace. Further info on manual tracking is here: https://imagej.net/plugins/trackmate/manual-track-editing
+Export the COM data using the 'Analysis' button and save the 'Spot Analysis' file as a .csv (File —> Save As) in the folder corresponding to the right species within the directory ‘/Users/jnirody/Dropbox/Research/Projects/unicellular eukaryotes/zoospores’
